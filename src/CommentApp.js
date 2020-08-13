@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect} from 'react'
 import CommentList from './CommentList'
 import CommentInput from './CommentInput'
+/* import wrapWithLoadData from './HighComponents' */
 
 /* class CommentApp extends Component{
   constructor (props) {
@@ -26,7 +27,7 @@ import CommentInput from './CommentInput'
     )
   }
 } */
-function CommentApp () {
+function CommentApp (props) {
   const [comments, setComment] = useState([])
   let handleSubmitComment = (val) => {
     if (!val) return
@@ -46,11 +47,20 @@ function CommentApp () {
       setComment(JSON.parse(c))
     }
   }
+  /* const loadComments = useCallback(() => {
+    const c = localStorage.getItem('commentList')
+    if (c) {
+      setComment(JSON.parse(c))
+    }
+    setComment(props.data || [])
+  }, []) */
   useEffect(() => {
     loadComments()
   }, [])
   useEffect(() => {
     return localStorage.setItem('commentList', JSON.stringify(comments))
+    /* console.log(comments)
+    return props.saveData(comments) */
   })
   return (
     <div className="wrap">
@@ -60,4 +70,5 @@ function CommentApp () {
   )
 }
 
+/* CommentApp = wrapWithLoadData(CommentApp, 'commentList') */
 export default CommentApp
