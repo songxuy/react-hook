@@ -17,9 +17,18 @@ function Comment (props) {
   const _updateTimeString = () => {
     const comment = props.comment
     const duration = (+Date.now() - comment.createdTime) / 1000
-    setTime(duration > 60
-      ? `${Math.round(duration / 60)} 分钟前`
-      : `${Math.round(Math.max(duration, 1))} 秒前`)
+    setTime(getTIme(duration))
+  }
+  const getTIme = (time) => {
+    if (time > 3600 * 24) {
+      return `${Math.round(time / (3600 * 24))} 天前`
+    } else if (time > 3600) {
+      return `${Math.round(time / 3600)} 小时前`
+    } else if (time > 60) {
+      return `${Math.round(time / 60)} 分钟前`
+    } else {
+      return `${Math.round(Math.max(time, 1))} 秒前`
+    }
   }
   const handleDelete = () => {
     if (props.handleDeleteComment) {

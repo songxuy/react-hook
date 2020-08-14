@@ -1,16 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import CommentApp from './containers/CommentApp';
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import commentsReducer from './reducers/comments'
 import * as serviceWorker from './serviceWorker';
-const store = createStore(commentsReducer)
+
 ReactDOM.render(
-  <Provider store={store}>
-    <CommentApp />
-  </Provider>,
+  <h1>hello world</h1>,
   document.getElementById('root')
 );
 

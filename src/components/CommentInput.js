@@ -54,9 +54,12 @@ import React, { useState, useEffect, useRef } from 'react'
   }
 } */
 function CommentInput (props) {
-  let [username, setUsername] = useState('')
+  let [username, setUsername] = useState(props.username)
   let [content, setContent] = useState('')
   let textarea = useRef(null)
+  useEffect(() => {
+    setUsername(props.username)
+  }, [props.username])
   let handleUsernameChange = (e) => {
     setUsername(e.target.value)
   }
@@ -74,12 +77,14 @@ function CommentInput (props) {
     setContent('')
   }
   const handleUsernameBlur = (e) => {
-    _saveUsername(e.target.value)
+    if (props.onUserNameInputBlur) {
+      props.onUserNameInputBlur(e.target.value)
+    }
   }
-  const _saveUsername = (val) => {
+  /* const _saveUsername = (val) => {
     localStorage.setItem('username', val)
-  }
-  const loadUsername = () => {
+  } */
+  /* const loadUsername = () => {
     const name = localStorage.getItem('username')
     if (name) {
       setUsername(name)
@@ -87,7 +92,7 @@ function CommentInput (props) {
   }
   useEffect(() => {
     loadUsername()
-  }, [])
+  }, []) */
   useEffect(() => {
     textarea.current.focus()
   }, [])
